@@ -16,8 +16,13 @@ export default function App() {
   const [editContent, setEditContent] = useState("");
 
   useEffect(() => {
-    localStorage.clear();
-  }, []);
+  const saved = localStorage.getItem("notes");
+
+  if (saved) {
+    setNotes(JSON.parse(saved));
+  }
+}, []);
+
 
   function getFormattedDate() {
     const date = new Date();
