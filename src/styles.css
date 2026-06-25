@@ -1,0 +1,101 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 800px;
+  height: 800px;
+  background-color: rgb(0, 140, 255);
+  justify-content: center;
+}
+
+.add-note {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  background-color: red;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+}
+
+#title-input {
+  flex: 1;
+  width: 100%;
+  resize: none;
+  outline: none;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.my-textarea {
+  flex: 10;
+  width: 100%;
+  resize: none;
+  outline: none;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+div > button {
+  flex: 0 0 30px;
+  width: 100%;
+  justify-content: center;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+div > button:focus {
+  border-color: dodgerblue;
+}
+
+.my-textarea:focus {
+  border-color: dodgerblue;
+  /* outline: none; */
+}
+
+.notes {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.my-note {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 150px;
+  background: yellow;
+  border: 1px solid black;
+  margin: 10px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.note-date {
+  font-size: 10px;
+}
+
+.note-content {
+  font-size: 14px;
+}
+.note-title {
+  font-weight: bold;
+}
+.note-top {
+  /* display: flex; */
+  flex: 1;
+  align-items:end;
+  /* justify-content: right; */
+}
+.note-body {
+  flex: 4;
+}
+.note-delete {
+  font-weight: bold;
+  flex: 1;
+}
