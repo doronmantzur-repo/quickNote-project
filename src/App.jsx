@@ -1,5 +1,6 @@
 import { Modal, Button } from "@mantine/core";
 import { useState } from "react";
+import { useEffect } from "react";
 import "./styles.css";
 import Note from "./Note";
 
@@ -14,9 +15,13 @@ export default function App() {
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   function getFormattedDate() {
     const date = new Date();
-    
+
     const formatted = date.toLocaleString("en-US", {
       month: "short",
       day: "numeric",
@@ -27,10 +32,16 @@ export default function App() {
     return formatted;
   }
 
+  function updateLocalStorage(notes) {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }
+
   function deleteNote(id) {
     const ok = window.confirm("Are you sure you want to delete your note?");
     if (!ok) return;
-    setNotes(notes.filter((note) => note.id !== id));
+    const updatedNotes = notes.filter((note) => note.id !== id);
+    setNotes(updatedNotes);
+    updateLocalStorage(updatedNotes);
   }
 
   function addNote() {
@@ -43,9 +54,9 @@ export default function App() {
       title: title,
       content: text,
     };
-
-    setNotes([...notes, newNote]);
-    console.log(notes);
+    const updatedNotes = [...notes, newNote];
+    setNotes(updatedNotes);
+    updateLocalStorage(updatedNotes);
     setText("");
     setTitle("");
   }
@@ -96,6 +107,8 @@ export default function App() {
         title={selectedNote?.title}
         centered
         size="auto"
+        zIndex={9999}
+        overlayProps={{ zIndex: 9998 }}
         styles={{
           content: {
             backgroundColor: "yellow",
@@ -143,11 +156,17 @@ export default function App() {
           onClick={() => {
             const updated = notes.map((n) =>
               n.id === selectedNote.id
-                ? { ...n, title: editTitle, content: editContent, updated: getFormattedDate() }
+                ? {
+                    ...n,
+                    title: editTitle,
+                    content: editContent,
+                    updated: getFormattedDate(),
+                  }
                 : n,
             );
 
             setNotes(updated);
+            updateLocalStorage(updated);
             setIsModalOpen(false);
           }}
         >
