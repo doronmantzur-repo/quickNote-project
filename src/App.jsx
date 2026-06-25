@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import "./styles.css";
 import Note from "./Note";
+import Select from "./Select";
 
 export default function App() {
   const [notes, setNotes] = useState([]);
@@ -15,14 +16,16 @@ export default function App() {
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
+  const [newCategory, setNewCategory] = useState("");
+  const [editCategory, setEditCategory] = useState("");
+
   useEffect(() => {
-  const saved = localStorage.getItem("notes");
+    const saved = localStorage.getItem("notes");
 
-  if (saved) {
-    setNotes(JSON.parse(saved));
-  }
-}, []);
-
+    if (saved) {
+      setNotes(JSON.parse(saved));
+    }
+  }, []);
 
   function getFormattedDate() {
     const date = new Date();
@@ -54,16 +57,19 @@ export default function App() {
 
     const newNote = {
       id: Date.now(),
+      category: newCategory,
       created: getFormattedDate(),
       updated: null,
       title: title,
       content: text,
     };
+
     const updatedNotes = [...notes, newNote];
     setNotes(updatedNotes);
     updateLocalStorage(updatedNotes);
     setText("");
     setTitle("");
+    setNewCategory("");
   }
 
   function openNote(note) {
@@ -72,6 +78,7 @@ export default function App() {
 
     setEditTitle(note.title);
     setEditContent(note.content);
+    setEditCategory(note.category);
   }
 
   return (
@@ -81,9 +88,11 @@ export default function App() {
           <input
             id="title-input"
             placeholder="Title"
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
             // value={person.name}
           />
+          <Select onChange={setNewCategory} value={newCategory} />
           <textarea
             className="my-textarea"
             placeholder="Your note..."
@@ -101,6 +110,7 @@ export default function App() {
               note={note}
               onDelete={deleteNote}
               onOpen={() => openNote(note)}
+              onDropdownChange={setEditCategory}
             />
           ))}
         </div>
@@ -112,8 +122,6 @@ export default function App() {
         title={selectedNote?.title}
         centered
         size="auto"
-        zIndex={9999}
-        overlayProps={{ zIndex: 9998 }}
         styles={{
           content: {
             backgroundColor: "yellow",
@@ -132,6 +140,7 @@ export default function App() {
           },
         }}
       >
+        <Select onChange={setEditCategory} value={editCategory} />
         <input
           value={editTitle}
           onChange={(e) => setEditTitle(e.target.value)}
@@ -165,6 +174,7 @@ export default function App() {
                     ...n,
                     title: editTitle,
                     content: editContent,
+                    category: editCategory,
                     updated: getFormattedDate(),
                   }
                 : n,

@@ -1,12 +1,21 @@
-export default function Note({ note, onDelete, onOpen }) {
-  const isUpdated = (note.updated != null)
+import Select from "./Select";
+
+export default function Note({ note, onDelete, onOpen, onDropdownChange }) {
+  const isUpdated = note.updated != null;
   return (
     <div className="my-note" onClick={onOpen} style={{ cursor: "pointer" }}>
       <div className="note-top">
+        <Select
+          onChange={(e) => {
+            e.stopPropagation();
+            onDropdownChange(e);
+          }}
+          value={note.category}
+        />
         <div
           className="note-delete"
           onClick={(e) => {
-            e.stopPropagation(); // prevents modal from opening
+            e.stopPropagation();
             onDelete(note.id);
           }}
           style={{ cursor: "pointer" }}
@@ -20,7 +29,7 @@ export default function Note({ note, onDelete, onOpen }) {
       </div>
       <div className="note-bottom">
         <div className="note-date">created: {note.created}</div>
-        {isUpdated && (<div className="note-date">updated: {note.created}</div>)}
+        {isUpdated && <div className="note-date">updated: {note.updated}</div>}
       </div>
     </div>
   );
