@@ -14,6 +14,19 @@ export default function App() {
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
+  function getFormattedDate() {
+    const date = new Date();
+    
+    const formatted = date.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+    return formatted;
+  }
+
   function deleteNote(id) {
     const ok = window.confirm("Are you sure you want to delete your note?");
     if (!ok) return;
@@ -25,6 +38,8 @@ export default function App() {
 
     const newNote = {
       id: Date.now(),
+      created: getFormattedDate(),
+      updated: null,
       title: title,
       content: text,
     };
@@ -128,7 +143,7 @@ export default function App() {
           onClick={() => {
             const updated = notes.map((n) =>
               n.id === selectedNote.id
-                ? { ...n, title: editTitle, content: editContent }
+                ? { ...n, title: editTitle, content: editContent, updated: getFormattedDate() }
                 : n,
             );
 

@@ -1,14 +1,5 @@
 export default function Note({ note, onDelete, onOpen }) {
-  const date = new Date();
-
-  const formatted = date.toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-
+  const isUpdated = (note.updated != null)
   return (
     <div className="my-note" onClick={onOpen} style={{ cursor: "pointer" }}>
       <div className="note-top">
@@ -28,7 +19,8 @@ export default function Note({ note, onDelete, onOpen }) {
         <div className="note-content">{note.content}</div>
       </div>
       <div className="note-bottom">
-        <div className="note-date">created: {formatted}</div>
+        <div className="note-date">created: {note.created}</div>
+        {isUpdated && (<div className="note-date">updated: {note.created}</div>)}
       </div>
     </div>
   );
