@@ -1,9 +1,22 @@
 import Select from "./Select";
 
-export default function Note({ note, onDelete, onOpen, onDropdownChange }) {
+export default function Note({
+  note,
+  onDelete,
+  onOpen,
+  onDropdownChange,
+  bcgColor,
+}) {
   const isUpdated = note.updated != null;
   return (
-    <div className="my-note" onClick={onOpen} style={{ cursor: "pointer" }}>
+    <div
+      className="my-note"
+      onClick={onOpen}
+      style={{
+        cursor: "pointer",
+        backgroundColor: bcgColor,
+      }}
+    >
       <div className="note-top">
         <Select
           onChange={(e) => {

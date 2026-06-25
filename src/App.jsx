@@ -19,6 +19,13 @@ export default function App() {
   const [newCategory, setNewCategory] = useState("");
   const [editCategory, setEditCategory] = useState("");
 
+  const categoryColors = {
+    home: "#ffb3b3",
+    work: "#b3d1ff",
+    shopping: "#b3ffb3",
+    academy: "#ffe6b3",
+  };
+
   useEffect(() => {
     const saved = localStorage.getItem("notes");
 
@@ -111,6 +118,7 @@ export default function App() {
               onDelete={deleteNote}
               onOpen={() => openNote(note)}
               onDropdownChange={setEditCategory}
+              bcgColor = {categoryColors[note.category]}
             />
           ))}
         </div>
@@ -124,13 +132,13 @@ export default function App() {
         size="auto"
         styles={{
           content: {
-            backgroundColor: "yellow",
+            backgroundColor: categoryColors[editCategory],
             padding: "20px",
             border: "2px solid black",
             borderRadius: "10px",
           },
           header: {
-            backgroundColor: "yellow",
+            backgroundColor: categoryColors[editCategory],
             // borderBottom: "2px solid black",
           },
           title: {
