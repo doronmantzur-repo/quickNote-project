@@ -107,5 +107,21 @@ div > button:focus {
   flex: 1;
 }
 
-#category {
+
+.my-filter{
+  display:flex;
+}
+
+#filter-input{
+  font-size: 12px;
+}
+
+.horizontal-line{
+  border: 1px dashed black;
+  width: 100%;
+}
+
+#category{
+  font-size:14px;
+  margin: 10px;
 }

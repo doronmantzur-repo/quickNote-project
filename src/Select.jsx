@@ -1,11 +1,12 @@
-export default function Select({onChange, value}) {
+export default function Select({onChange, value, disabled}) {
   return (
     <select name="category" 
     id="category" 
-    value={value} 
+    value={value}
+    disabled = {disabled}
     onClick={(e) => e.stopPropagation()} 
     onChange={(e) => onChange(e.target.value)}>
-      <option value="" disabled>Select category</option>
+      <option value="" disabled>Category</option>
       <option value="home">Home</option>
       <option value="work">Work</option>
       <option value="shopping">Shopping</option>

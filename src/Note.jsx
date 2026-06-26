@@ -24,6 +24,7 @@ export default function Note({
             onDropdownChange(value);
           }}
           value={note.category}
+          disabled={true}
         />
         <div
           className="note-delete"

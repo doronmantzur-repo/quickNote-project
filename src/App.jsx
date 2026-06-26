@@ -7,8 +7,13 @@ import Select from "./Select";
 
 export default function App() {
   const [notes, setNotes] = useState([]);
+  const [filteredNotes, setFilterdtNotes] = useState(notes);
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
+
+  const [filter, setFilter] = useState("");
+  const [categoryfilter, setCategoryFilter] = useState("");
+  const [filterChecked, setIsChecked] = useState(false);
 
   const [selectedNote, setSelectedNote] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +62,7 @@ export default function App() {
     if (!ok) return;
     const updatedNotes = notes.filter((note) => note.id !== id);
     setNotes(updatedNotes);
+    applyFilters(updatedNotes);
     updateLocalStorage(updatedNotes);
   }
 
@@ -89,6 +95,48 @@ export default function App() {
     setEditCategory(note.category);
   }
 
+  function applyFilters(notesList) {
+    let result = notesList;
+
+    if (filterChecked) {
+      if (filter) {
+        result = result.filter(
+          (n) =>
+            n.title.toLowerCase().includes(filter.toLowerCase()) ||
+            n.content.toLowerCase().includes(filter.toLowerCase()),
+        );
+      }
+
+      if (categoryfilter) {
+        result = result.filter((n) => n.category === categoryfilter);
+      }
+    }
+
+    setFilterdtNotes(result);
+  }
+
+  function updateFilter(isChecked) {
+    if (isChecked === false) {
+      setCategoryFilter("");
+      setFilter("");
+      setNotes(notes);
+    } else {
+      applyFilters(notes);
+    }
+  }
+
+  function filterNotesByText(value) {
+    const localFilteredNotes = notes.filter(
+      (n) => n.title.includes(value) || n.content.includes(value),
+    );
+    applyFilters(localFilteredNotes);
+  }
+
+  function filterNotesByCategory(value) {
+    const localFilteredNotes = notes.filter((n) => n.category === value);
+    applyFilters(localFilteredNotes);
+  }
+
   return (
     <div className="App">
       <div className="Form">
@@ -97,22 +145,58 @@ export default function App() {
             id="title-input"
             placeholder="Title"
             value={title}
+            disabled={filterChecked}
             onChange={(e) => setTitle(e.target.value)}
-            // value={person.name}
           />
-          <Select onChange={setNewCategory} value={newCategory} />
+          <Select
+            onChange={setNewCategory}
+            value={newCategory}
+            disable={filterChecked}
+          />
           <textarea
             className="my-textarea"
             placeholder="Your note..."
             value={text}
+            disabled={filterChecked}
             onChange={(e) => setText(e.target.value)}
           ></textarea>
-          <button id="add-note" onClick={addNote}>
+          <button id="add-note" disabled={filterChecked} onClick={addNote}>
             Add
           </button>
+          <div className="horizontal-line"></div>
+          <div className="my-filter">
+            <input
+              type="checkbox"
+              checked={filterChecked}
+              onChange={(e) => {
+                const isChecked = e.target.checked;
+                setIsChecked(isChecked);
+                updateFilter(isChecked);
+              }}
+            />
+            <input
+              id="filter-input"
+              placeholder="Filter..."
+              value={filter}
+              readOnly={!filterChecked}
+              onChange={(e) => {
+                setFilter(e.target.value);
+                filterNotesByText(e.target.value);
+              }}
+            />
+            <Select
+              value={categoryfilter}
+              disable={!filterChecked}
+              onChange={(value) => {
+                // console.log(value)
+                setCategoryFilter(value);
+                filterNotesByCategory(value);
+              }}
+            />
+          </div>
         </div>
         <div className="notes">
-          {notes.map((note) => (
+          {(filterChecked ? filteredNotes : notes).map((note) => (
             <Note
               key={note.id}
               note={note}
@@ -155,7 +239,11 @@ export default function App() {
           },
         }}
       >
-        <Select onChange={setEditCategory} value={editCategory} />
+        <Select
+          onChange={setEditCategory}
+          value={editCategory}
+          disabled={false}
+        />
         <input
           value={editTitle}
           onChange={(e) => setEditTitle(e.target.value)}
@@ -197,6 +285,7 @@ export default function App() {
 
             setNotes(updated);
             updateLocalStorage(updated);
+            applyFilters(updated);
             setIsModalOpen(false);
           }}
         >
