@@ -15,8 +15,9 @@ export default function App() {
 
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
-
+  //handles the category in the add-note form
   const [newCategory, setNewCategory] = useState("");
+  //handles the category in the selected note
   const [editCategory, setEditCategory] = useState("");
 
   const categoryColors = {
@@ -117,8 +118,14 @@ export default function App() {
               note={note}
               onDelete={deleteNote}
               onOpen={() => openNote(note)}
-              onDropdownChange={setEditCategory}
-              bcgColor = {categoryColors[note.category]}
+              onDropdownChange={(value) => {
+                const updated = notes.map((n) =>
+                  n.id === note.id ? { ...n, category: value } : n,
+                );
+                setNotes(updated);
+                updateLocalStorage(updated);
+              }}
+              bcgColor={categoryColors[note.category]}
             />
           ))}
         </div>

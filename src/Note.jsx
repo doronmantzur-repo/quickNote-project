@@ -19,9 +19,9 @@ export default function Note({
     >
       <div className="note-top">
         <Select
-          onChange={(e) => {
-            e.stopPropagation();
-            onDropdownChange(e);
+          onChange={(value) => {
+            // e.stopPropagation();
+            onDropdownChange(value);
           }}
           value={note.category}
         />
