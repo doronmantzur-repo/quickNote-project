@@ -177,9 +177,7 @@ export default function App() {
               value={categoryfilter}
               disabled={!filterChecked}
               onChange={(value) => {
-                // console.log(value)
                 setCategoryFilter(value);
-                // filterNotesByCategory(value);
                 applyFilters(filter, value);
               }}
             />
