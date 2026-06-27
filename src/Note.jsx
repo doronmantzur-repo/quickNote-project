@@ -34,7 +34,7 @@ export default function Note({
           }}
           style={{ cursor: "pointer" }}
         >
-          X
+        X
         </div>
       </div>
       <div className="note-body">

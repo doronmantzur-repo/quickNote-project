@@ -151,7 +151,7 @@ export default function App() {
           <Select
             onChange={setNewCategory}
             value={newCategory}
-            disable={filterChecked}
+            disabled={filterChecked}
           />
           <textarea
             className="my-textarea"
@@ -186,7 +186,7 @@ export default function App() {
             />
             <Select
               value={categoryfilter}
-              disable={!filterChecked}
+              disabled={!filterChecked}
               onChange={(value) => {
                 // console.log(value)
                 setCategoryFilter(value);
