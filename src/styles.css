@@ -81,7 +81,7 @@ div > button:focus {
   display: flex;
   flex-direction: column;
   width: 200px;
-  height: 150px;
+  height: 200px;
   background: #ffd500;
   border: 1px solid black;
   margin: 10px;
@@ -121,7 +121,7 @@ div > button:focus {
   /* align-items: end; */
 }
 .note-body {
-  flex: 6;
+  flex: 3;
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
