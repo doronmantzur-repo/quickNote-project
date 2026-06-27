@@ -1,4 +1,6 @@
 import Select from "./Select";
+import Pin from "./assets/Pin.png";
+
 
 export default function Note({
   note,
@@ -18,6 +20,9 @@ export default function Note({
       }}
     >
       <div className="note-top">
+        <div className="note-pin">
+          <img src={Pin} alt="" />
+        </div>
         <Select
           onChange={(value) => {
             // e.stopPropagation();
@@ -34,7 +39,7 @@ export default function Note({
           }}
           style={{ cursor: "pointer" }}
         >
-        X
+          X
         </div>
       </div>
       <div className="note-body">

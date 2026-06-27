@@ -9,23 +9,29 @@
   /* align-items: center; */
   width: 100%;
   height: 100vh;
-  background-color: #4d85bd;
-  /* justify-content: center; */
+  background-color: #dee3cb;
+     background: repeating-linear-gradient(
+      90deg,
+      #e8d8b0,
+      #e8d8b0 5px,
+      #e2cfa3 5px,
+      #e2cfa3 10px
+  );
+  padding-top: 40px;
 }
 
 .add-note {
   display: flex;
   flex: 1;
   flex-direction: column;
-  width: 300px;
-  /* height: auto; */
-  background-color: #6dbe96;
+  background-color: #a3a4ae;
   align-items: center;
   padding: 20px;
   gap: 10px;
   border-radius: 8px;
   justify-content: center;
   margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.50);
 }
 
 #title-input {
@@ -69,6 +75,7 @@ div > button:focus {
   width: 100%;
   flex-wrap: wrap;
   overflow-y: auto;
+  padding-top: 30px;
 }
 .my-note {
   display: flex;
@@ -81,7 +88,22 @@ div > button:focus {
   padding: 10px;
   z-index: 1;
   border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 9.50);
 }
+
+.note-pin {
+  top: -8px;
+  right: 8px;
+  cursor: pointer;
+  
+}
+
+.note-pin img {
+  width: 30px;   
+  height: 20px;  
+  object-fit: contain;
+}
+
 
 .note-date {
   font-size: 10px;
@@ -99,11 +121,27 @@ div > button:focus {
   /* align-items: end; */
 }
 .note-body {
-  flex: 4;
+  flex: 6;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-y: auto;
 }
 .note-top Select{
  flex:6;
 }
+
+.note-top select:disabled {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  pointer-events: none;
+  color:black;
+}
+
 .note-delete {
   font-weight: bold;
   margin-left: auto;
@@ -120,7 +158,7 @@ div > button:focus {
 }
 
 .horizontal-line {
-  border: 1px dashed black;
+  border: 1px dashed rgb(98, 91, 91);
   width: 100%;
 }
 

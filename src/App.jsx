@@ -62,7 +62,7 @@ export default function App() {
     if (!ok) return;
     const updatedNotes = notes.filter((note) => note.id !== id);
     setNotes(updatedNotes);
-    applyFilters(updatedNotes);
+    applyFilters(filter, categoryfilter);
     updateLocalStorage(updatedNotes);
   }
 
@@ -95,20 +95,20 @@ export default function App() {
     setEditCategory(note.category);
   }
 
-  function applyFilters(notesList) {
-    let result = notesList;
+  function applyFilters(newFilter = filter, newCategory = categoryfilter) {
+    let result = notes;
 
     if (filterChecked) {
-      if (filter) {
+      if (newFilter) {
         result = result.filter(
           (n) =>
-            n.title.toLowerCase().includes(filter.toLowerCase()) ||
-            n.content.toLowerCase().includes(filter.toLowerCase()),
+            n.title.toLowerCase().includes(newFilter.toLowerCase()) ||
+            n.content.toLowerCase().includes(newFilter.toLowerCase()),
         );
       }
 
-      if (categoryfilter) {
-        result = result.filter((n) => n.category === categoryfilter);
+      if (newCategory) {
+        result = result.filter((n) => n.category === newCategory);
       }
     }
 
@@ -121,20 +121,8 @@ export default function App() {
       setFilter("");
       setNotes(notes);
     } else {
-      applyFilters(notes);
+      applyFilters(filter, categoryfilter);
     }
-  }
-
-  function filterNotesByText(value) {
-    const localFilteredNotes = notes.filter(
-      (n) => n.title.includes(value) || n.content.includes(value),
-    );
-    applyFilters(localFilteredNotes);
-  }
-
-  function filterNotesByCategory(value) {
-    const localFilteredNotes = notes.filter((n) => n.category === value);
-    applyFilters(localFilteredNotes);
   }
 
   return (
@@ -181,7 +169,8 @@ export default function App() {
               readOnly={!filterChecked}
               onChange={(e) => {
                 setFilter(e.target.value);
-                filterNotesByText(e.target.value);
+                // filterNotesByText(e.target.value);
+                applyFilters(e.target.value, categoryfilter);
               }}
             />
             <Select
@@ -190,7 +179,8 @@ export default function App() {
               onChange={(value) => {
                 // console.log(value)
                 setCategoryFilter(value);
-                filterNotesByCategory(value);
+                // filterNotesByCategory(value);
+                applyFilters(filter, value);
               }}
             />
           </div>
@@ -285,7 +275,7 @@ export default function App() {
 
             setNotes(updated);
             updateLocalStorage(updated);
-            applyFilters(updated);
+            applyFilters(filter, categoryfilter);
             setIsModalOpen(false);
           }}
         >
