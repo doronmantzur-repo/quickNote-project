@@ -100,7 +100,7 @@ div > button:focus {
 
 .note-pin img {
   width: 30px;   
-  height: 20px;  
+  height: 30px;  
   object-fit: contain;
 }
 
@@ -112,14 +112,16 @@ div > button:focus {
 .note-content {
   font-size: 14px;
 }
+
 .note-title {
   font-weight: bold;
 }
+
 .note-top {
   display: flex;
   flex: 1;
-  /* align-items: end; */
 }
+
 .note-body {
   flex: 3;
   white-space: normal;
@@ -128,7 +130,7 @@ div > button:focus {
   overflow-y: auto;
 }
 .note-top Select{
- flex:6;
+ flex:1;
 }
 
 .note-top select:disabled {
