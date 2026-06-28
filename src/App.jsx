@@ -40,6 +40,7 @@ export default function App() {
     }
   }, []);
 
+  
   function getFormattedDate() {
     const date = new Date();
 
@@ -169,7 +170,6 @@ export default function App() {
               readOnly={!filterChecked}
               onChange={(e) => {
                 setFilter(e.target.value);
-                // filterNotesByText(e.target.value);
                 applyFilters(e.target.value, categoryfilter);
               }}
             />

@@ -1,7 +1,6 @@
 import Select from "./Select";
 import Pin from "./assets/Pin.png";
 
-
 export default function Note({
   note,
   onDelete,
@@ -20,9 +19,6 @@ export default function Note({
       }}
     >
       <div className="note-top">
-        <div className="note-pin">
-          <img src={Pin} alt="" />
-        </div>
         <Select
           onChange={(value) => {
             // e.stopPropagation();
@@ -31,6 +27,9 @@ export default function Note({
           value={note.category}
           disabled={true}
         />
+        <div className="note-pin">
+          <img src={Pin} alt="" />
+        </div>
         <div
           className="note-delete"
           onClick={(e) => {
