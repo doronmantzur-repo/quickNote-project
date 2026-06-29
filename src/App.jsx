@@ -1,11 +1,12 @@
 import { Modal, Button } from "@mantine/core";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState, useRef  } from "react";
 import "./styles.css";
 import Note from "./Note";
 import Select from "./Select";
 
 export default function App() {
+  const textAreaRef = useRef(null);
+
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilterdtNotes] = useState(notes);
   const [text, setText] = useState("");
@@ -40,7 +41,14 @@ export default function App() {
     }
   }, []);
 
-  
+  useEffect(() => {
+    if (textAreaRef.current) {
+      const ta = textAreaRef.current;
+      ta.style.height = "auto";
+      ta.style.height = ta.scrollHeight + "px";
+    }
+  }, [text]);
+
   function getFormattedDate() {
     const date = new Date();
 
@@ -143,6 +151,7 @@ export default function App() {
             disabled={filterChecked}
           />
           <textarea
+            ref={textAreaRef}
             className="my-textarea"
             placeholder="Your note..."
             value={text}

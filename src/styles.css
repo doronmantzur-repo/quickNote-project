@@ -22,7 +22,6 @@
 
 .add-note {
   display: flex;
-  flex: 1;
   flex-direction: column;
   background-color: #a3a4ae;
   align-items: center;
@@ -44,12 +43,13 @@
 }
 
 .my-textarea {
-  flex: 10;
   width: 100%;
   resize: none;
-  outline: none;
   border: 2px solid #ccc;
   border-radius: 5px;
+  display: block;       
+  align-self: stretch;
+  min-height: 100px;
 }
 
 div > button {
