@@ -71,7 +71,7 @@ export default function App() {
     if (!ok) return;
     const updatedNotes = notes.filter((note) => note.id !== id);
     setNotes(updatedNotes);
-    applyFilters(filter, categoryfilter);
+    applyFilters(filter, categoryfilter, updatedNotes);
     updateLocalStorage(updatedNotes);
   }
 
@@ -104,8 +104,8 @@ export default function App() {
     setEditCategory(note.category);
   }
 
-  function applyFilters(newFilter = filter, newCategory = categoryfilter) {
-    let result = notes;
+  function applyFilters(newFilter = filter, newCategory = categoryfilter, noteList = notes) {
+    let result = noteList;
 
     if (filterChecked) {
       if (newFilter) {
