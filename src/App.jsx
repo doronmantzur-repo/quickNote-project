@@ -1,5 +1,5 @@
 import { Modal, Button } from "@mantine/core";
-import { useEffect, useState, useRef  } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./styles.css";
 import Note from "./Note";
 import Select from "./Select";
@@ -104,7 +104,11 @@ export default function App() {
     setEditCategory(note.category);
   }
 
-  function applyFilters(newFilter = filter, newCategory = categoryfilter, noteList = notes) {
+  function applyFilters(
+    newFilter = filter,
+    newCategory = categoryfilter,
+    noteList = notes,
+  ) {
     let result = noteList;
 
     if (filterChecked) {
@@ -282,7 +286,7 @@ export default function App() {
 
             setNotes(updated);
             updateLocalStorage(updated);
-            applyFilters(filter, categoryfilter);
+            applyFilters(filter, categoryfilter, updated);
             setIsModalOpen(false);
           }}
         >
