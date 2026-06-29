@@ -4,6 +4,7 @@ import "./styles.css";
 import Note from "./Note";
 import Select from "./Select";
 
+let modalUpdatedNote = false;
 export default function App() {
   const textAreaRef = useRef(null);
 
@@ -96,6 +97,7 @@ export default function App() {
   }
 
   function openNote(note) {
+    modalUpdatedNote = false;
     setSelectedNote(note);
     setIsModalOpen(true);
 
@@ -241,13 +243,19 @@ export default function App() {
         }}
       >
         <Select
-          onChange={setEditCategory}
+          onChange={(e) => {
+            setEditCategory(e);
+            modalUpdatedNote = true;
+          }}
           value={editCategory}
           disabled={false}
         />
         <input
           value={editTitle}
-          onChange={(e) => setEditTitle(e.target.value)}
+          onChange={(e) => {
+            modalUpdatedNote = true;
+            setEditTitle(e.target.value);
+          }}
           style={{
             width: "100%",
             padding: "8px",
@@ -259,7 +267,10 @@ export default function App() {
 
         <textarea
           value={editContent}
-          onChange={(e) => setEditContent(e.target.value)}
+          onChange={(e) => {
+            setEditContent(e.target.value);
+            modalUpdatedNote = true;
+          }}
           style={{
             width: "100%",
             height: "150px",
@@ -279,11 +290,11 @@ export default function App() {
                     title: editTitle,
                     content: editContent,
                     category: editCategory,
-                    updated: getFormattedDate(),
+                    updated: modalUpdatedNote ? getFormattedDate() : null,
                   }
                 : n,
             );
-
+            modalUpdatedNote = false;
             setNotes(updated);
             updateLocalStorage(updated);
             applyFilters(filter, categoryfilter, updated);
