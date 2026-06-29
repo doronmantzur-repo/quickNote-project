@@ -50,6 +50,7 @@
   display: block;       
   align-self: stretch;
   min-height: 100px;
+  overflow-y: hidden;
 }
 
 div > button {
